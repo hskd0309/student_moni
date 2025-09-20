@@ -8,15 +8,15 @@ const StudentDashboard: React.FC = () => {
   const { briScore, attendance, avgMarks, assignmentsOnTime, sentiment, briHistory, attendanceData } = studentData;
 
   const getBriColor = (score: number) => {
-    if (score >= 70) return 'text-green-600';
-    if (score >= 50) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score < 40) return 'text-red-600';
+    if (score <= 70) return 'text-yellow-600';
+    return 'text-green-600';
   };
 
   const getBriGradient = (score: number) => {
-    if (score >= 70) return 'from-green-500 to-green-600';
-    if (score >= 50) return 'from-yellow-500 to-yellow-600';
-    return 'from-red-500 to-red-600';
+    if (score < 40) return 'from-red-500 to-red-600';
+    if (score <= 70) return 'from-yellow-500 to-yellow-600';
+    return 'from-green-500 to-green-600';
   };
 
   const getSentimentIcon = (sentiment: string) => {

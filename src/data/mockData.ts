@@ -6,6 +6,7 @@ export const studentData = {
   avgMarks: 78,
   assignmentsOnTime: 92,
   sentiment: "positive",
+  dataSharing: true, // Privacy consent for sharing data with advisors
   
   briHistory: [
     { month: 'Jan', score: 80 },
@@ -83,7 +84,8 @@ export const classData = {
       id: `anon-${i + 1}`,
       briScore: Math.floor(Math.random() * 60) + 25, // 25-85 range
       trend: Array.from({ length: 10 }, () => Math.floor(Math.random() * 30) + 50),
-      riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)]
+      riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
+      dataSharing: i % 7 !== 0 // Some students (every 7th) deny data sharing
     }))
   },
   
@@ -112,7 +114,8 @@ export const classData = {
       id: `anon-${i + 41}`,
       briScore: Math.floor(Math.random() * 60) + 30, // 30-90 range
       trend: Array.from({ length: 10 }, () => Math.floor(Math.random() * 30) + 60),
-      riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)]
+      riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
+      dataSharing: i % 5 !== 0 // Some students (every 5th) deny data sharing
     }))
   }
 };
@@ -158,7 +161,7 @@ export const counsellorReferrals = [
     studentId: 'HASHED-STU-002',
     realName: 'Jane Smith',
     briScore: 38,
-    riskFactors: ['Family issues', 'Financial stress', 'Academic pressure'],
+    riskFactors: ['Other issues', 'Academic pressure', 'Social isolation'],
     referredBy: 'Dr. Johnson',
     referredDate: '2024-09-03',
     status: 'in-progress',

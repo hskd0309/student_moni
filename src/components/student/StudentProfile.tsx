@@ -30,9 +30,9 @@ const StudentProfile: React.FC = () => {
   ];
 
   const getFactorColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500';
-    if (score >= 60) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (score < 40) return 'bg-red-500';
+    if (score <= 70) return 'bg-yellow-500';
+    return 'bg-green-500';
   };
 
   const getImpactColor = (impact: string, type: string) => {
@@ -71,7 +71,7 @@ const StudentProfile: React.FC = () => {
               <div className="text-4xl font-bold text-blue-600">{briScore}</div>
               <div className="text-sm text-blue-500">Out of 100</div>
               <div className="text-xs text-gray-500 mt-1">
-                {briScore >= 70 ? 'Low Risk' : briScore >= 50 ? 'Moderate Risk' : 'High Risk'}
+                {briScore < 40 ? 'High Risk' : briScore <= 70 ? 'Moderate Risk' : 'Low Risk'}
               </div>
             </div>
           </div>

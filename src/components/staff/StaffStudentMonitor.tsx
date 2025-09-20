@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Search, Filter, Users, AlertTriangle, TrendingUp, Phone, Mail, Eye } from 'lucide-react';
+import { Search, Filter, Users, AlertTriangle, TrendingUp, Phone, Mail, Eye, Shield } from 'lucide-react';
 import { classData } from '@/data/mockData';
 
 const StaffStudentMonitor: React.FC = () => {
@@ -29,9 +29,9 @@ const StaffStudentMonitor: React.FC = () => {
   });
 
   const getBriColor = (score: number) => {
-    if (score >= 70) return 'text-green-600';
-    if (score >= 50) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score < 40) return 'text-red-600';
+    if (score <= 70) return 'text-yellow-600';
+    return 'text-green-600';
   };
 
   const getRiskBadgeColor = (riskLevel: string) => {
@@ -60,6 +60,16 @@ const StaffStudentMonitor: React.FC = () => {
         <DialogTitle>Student Details - {student.id}</DialogTitle>
       </DialogHeader>
       <div className="space-y-6">
+        {!student.dataSharing ? (
+          <div className="text-center py-12">
+            <Shield className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Access Denied</h3>
+            <p className="text-gray-600 max-w-md mx-auto">
+              This student has not granted permission to share their academic data with advisors. 
+              Data sharing consent is required to view detailed analytics.
+            </p>
+          </div>
+        ) : (
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center p-4 bg-gray-50 rounded-lg">
             <p className={`text-2xl font-bold ${getBriColor(student.briScore)}`}>{student.briScore}</p>
@@ -103,6 +113,7 @@ const StaffStudentMonitor: React.FC = () => {
             Full Profile
           </Button>
         </div>
+        )}
       </div>
     </DialogContent>
   );

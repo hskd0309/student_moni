@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { Users, AlertTriangle, TrendingDown, MessageSquare, Eye, UserX, Phone, Mail } from 'lucide-react';
+import { Users, AlertTriangle, TrendingDown, MessageSquare, Eye, UserX, Phone, Mail, Shield } from 'lucide-react';
 import { classData, complaints } from '@/data/mockData';
 
 interface ClassAnalyticsProps {
@@ -29,9 +29,9 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ className }) => {
   };
 
   const getBriColor = (score: number) => {
-    if (score >= 70) return 'text-green-600';
-    if (score >= 50) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score < 40) return 'text-red-600';
+    if (score <= 70) return 'text-yellow-600';
+    return 'text-green-600';
   };
 
   const recentComplaints = complaints.filter(complaint => complaint.class === className);
@@ -42,6 +42,16 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ className }) => {
         <DialogTitle>Student Analysis - {student.id}</DialogTitle>
       </DialogHeader>
       <div className="space-y-6">
+        {!student.dataSharing ? (
+          <div className="text-center py-12">
+            <Shield className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Access Denied</h3>
+            <p className="text-gray-600 max-w-md mx-auto">
+              This student has not granted permission to share their academic data with advisors. 
+              Data sharing consent is required to view detailed analytics.
+            </p>
+          </div>
+        ) : (
         {/* Student Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="p-4">
@@ -118,6 +128,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ className }) => {
             Full History
           </Button>
         </div>
+        )}
       </div>
     </DialogContent>
   );

@@ -8,6 +8,7 @@ import StudentTests from './StudentTests';
 import StudentGroupChat from './StudentGroupChat';
 import StudentFeedback from './StudentFeedback';
 import StudentProfile from './StudentProfile';
+import PrivacyConsent from './PrivacyConsent';
 
 const StudentLayout: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -28,6 +29,8 @@ const StudentLayout: React.FC = () => {
         return <StudentFeedback />;
       case 'profile':
         return <StudentProfile />;
+      case 'privacy':
+        return <PrivacyConsent />;
       default:
         return <StudentDashboard />;
     }
