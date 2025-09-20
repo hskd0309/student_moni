@@ -70,7 +70,8 @@ const StaffStudentMonitor: React.FC = () => {
             </p>
           </div>
         ) : (
-        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <div className="grid grid-cols-3 gap-4">
           <div className="text-center p-4 bg-gray-50 rounded-lg">
             <p className={`text-2xl font-bold ${getBriColor(student.briScore)}`}>{student.briScore}</p>
             <p className="text-sm text-gray-600">BRI Score</p>
@@ -113,6 +114,7 @@ const StaffStudentMonitor: React.FC = () => {
             Full Profile
           </Button>
         </div>
+          </div>
         )}
       </div>
     </DialogContent>

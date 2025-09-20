@@ -52,8 +52,9 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ className }) => {
             </p>
           </div>
         ) : (
-        {/* Student Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            {/* Student Overview */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="p-4">
             <div className="text-center">
               <p className={`text-3xl font-bold ${getBriColor(student.briScore)}`}>{student.briScore}</p>
@@ -128,6 +129,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ className }) => {
             Full History
           </Button>
         </div>
+          </div>
         )}
       </div>
     </DialogContent>
