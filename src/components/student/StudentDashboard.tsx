@@ -8,9 +8,9 @@ const StudentDashboard: React.FC = () => {
   const { briScore, attendance, avgMarks, assignmentsOnTime, sentiment, briHistory, attendanceData } = studentData;
 
   const getBriColor = (score: number) => {
-    if (score < 40) return 'text-red-600';
-    if (score <= 70) return 'text-yellow-600';
-    return 'text-green-600';
+    if (score > 70) return 'text-green-600';
+    if (score >= 40) return 'text-yellow-600';
+    return 'text-red-600';
   };
 
   const getBriGradient = (score: number) => {
@@ -197,6 +197,23 @@ const StudentDashboard: React.FC = () => {
               <p className="text-sm text-purple-600 mt-1">Connect with your classmates</p>
             </div>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Subject Performance */}
+      <Card className="dashboard-card">
+        <CardHeader>
+          <CardTitle>Subject Performance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={studentData.subjectMarks}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="subject" />
+              <YAxis />
+              <Bar dataKey="marks" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
         </CardContent>
       </Card>
     </div>

@@ -58,10 +58,58 @@ export const studentData = {
   ]
 };
 
+const cseKStudents = Array.from({ length: 40 }, (_, i) => {
+      const isHighRisk = i < 5;
+      const briScore = isHighRisk
+        ? Math.floor(Math.random() * 15) + 25 // 25-39 range for high risk
+        : Math.floor(Math.random() * 45) + 40; // 40-85 range for others
+
+      let riskLevel;
+      if (briScore < 40) {
+        riskLevel = 'high';
+      } else if (briScore < 70) {
+        riskLevel = 'medium';
+      } else {
+        riskLevel = 'low';
+      }
+
+      return {
+        id: `anon-${i + 1}`,
+        briScore,
+        trend: Array.from({ length: 10 }, () => Math.floor(Math.random() * 30) + 50),
+        riskLevel,
+        dataSharing: i < 5 ? true : i % 7 !== 0, // First 5 high risk students share data
+      };
+    });
+
+const cseDStudents = Array.from({ length: 38 }, (_, i) => {
+      const isHighRisk = i < 3;
+      const briScore = isHighRisk
+        ? Math.floor(Math.random() * 10) + 30 // 30-39 range for high risk
+        : Math.floor(Math.random() * 50) + 40; // 40-90 range for others
+
+      let riskLevel;
+      if (briScore < 40) {
+        riskLevel = 'high';
+      } else if (briScore < 70) {
+        riskLevel = 'medium';
+      } else {
+        riskLevel = 'low';
+      }
+
+      return {
+        id: `anon-${i + 41}`,
+        briScore,
+        trend: Array.from({ length: 10 }, () => Math.floor(Math.random() * 30) + 60),
+        riskLevel,
+        dataSharing: i < 3 ? true : i % 5 !== 0, // First 3 high risk students share data
+      };
+    });
+
 export const classData = {
   'CSE-K': {
     avgBri: 68,
-    highRiskCount: 5,
+    highRiskCount: cseKStudents.filter(s => s.riskLevel === 'high').length,
     avgAttendance: 82,
     totalStudents: 40,
     complaintsCount: 3,
@@ -75,23 +123,17 @@ export const classData = {
     ],
     
     riskDistribution: [
-      { risk: 'Low', count: 25, fill: '#22c55e' },
-      { risk: 'Medium', count: 10, fill: '#f59e0b' },
-      { risk: 'High', count: 5, fill: '#ef4444' }
+      { risk: 'Low', count: cseKStudents.filter(s => s.riskLevel === 'low').length, fill: '#22c55e' },
+      { risk: 'Medium', count: cseKStudents.filter(s => s.riskLevel === 'medium').length, fill: '#f59e0b' },
+      { risk: 'High', count: cseKStudents.filter(s => s.riskLevel === 'high').length, fill: '#ef4444' }
     ],
     
-    students: Array.from({ length: 40 }, (_, i) => ({
-      id: `anon-${i + 1}`,
-      briScore: Math.floor(Math.random() * 60) + 25, // 25-85 range
-      trend: Array.from({ length: 10 }, () => Math.floor(Math.random() * 30) + 50),
-      riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
-      dataSharing: i % 7 !== 0 // Some students (every 7th) deny data sharing
-    }))
+    students: cseKStudents,
   },
   
   'CSE-D': {
     avgBri: 75,
-    highRiskCount: 3,
+    highRiskCount: cseDStudents.filter(s => s.riskLevel === 'high').length,
     avgAttendance: 88,
     totalStudents: 38,
     complaintsCount: 1,
@@ -105,18 +147,12 @@ export const classData = {
     ],
     
     riskDistribution: [
-      { risk: 'Low', count: 30, fill: '#22c55e' },
-      { risk: 'Medium', count: 5, fill: '#f59e0b' },
-      { risk: 'High', count: 3, fill: '#ef4444' }
+      { risk: 'Low', count: cseDStudents.filter(s => s.riskLevel === 'low').length, fill: '#22c55e' },
+      { risk: 'Medium', count: cseDStudents.filter(s => s.riskLevel === 'medium').length, fill: '#f59e0b' },
+      { risk: 'High', count: cseDStudents.filter(s => s.riskLevel === 'high').length, fill: '#ef4444' }
     ],
     
-    students: Array.from({ length: 38 }, (_, i) => ({
-      id: `anon-${i + 41}`,
-      briScore: Math.floor(Math.random() * 60) + 30, // 30-90 range
-      trend: Array.from({ length: 10 }, () => Math.floor(Math.random() * 30) + 60),
-      riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
-      dataSharing: i % 5 !== 0 // Some students (every 5th) deny data sharing
-    }))
+    students: cseDStudents,
   }
 };
 

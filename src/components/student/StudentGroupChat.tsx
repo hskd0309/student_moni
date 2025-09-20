@@ -25,22 +25,17 @@ const StudentGroupChat: React.FC = () => {
     setNewMessage('');
   };
 
-  const getSentimentBadge = (sentiment: string) => {
-    switch (sentiment) {
-      case 'positive':
-        return <Badge className="bg-green-100 text-green-800 text-xs">😊 Positive</Badge>;
-      case 'negative':
-        return <Badge className="bg-red-100 text-red-800 text-xs">😟 Negative</Badge>;
-      default:
-        return <Badge className="bg-gray-100 text-gray-800 text-xs">😐 Neutral</Badge>;
-    }
-  };
+  const getOverallSentiment = () => {
+    const positiveCount = messages.filter(m => m.sentiment === 'positive').length;
+    const negativeCount = messages.filter(m => m.sentiment === 'negative').length;
+    const neutralCount = messages.filter(m => m.sentiment === 'neutral').length;
 
-  const getSentimentColor = (sentiment: string) => {
-    switch (sentiment) {
-      case 'positive': return 'border-l-green-500 bg-green-50';
-      case 'negative': return 'border-l-red-500 bg-red-50';
-      default: return 'border-l-gray-500 bg-gray-50';
+    if (positiveCount > negativeCount && positiveCount > neutralCount) {
+      return '😊 Overall Positive';
+    } else if (negativeCount > positiveCount && negativeCount > neutralCount) {
+      return '😟 Overall Negative';
+    } else {
+      return '😐 Overall Neutral';
     }
   };
 
@@ -107,12 +102,11 @@ const StudentGroupChat: React.FC = () => {
           {/* Messages Area */}
           <div className="h-96 overflow-y-auto p-6 space-y-4">
             {messages.map((message) => (
-              <div key={message.id} className={`border-l-4 pl-4 py-3 rounded-r-lg ${getSentimentColor(message.sentiment)}`}>
+              <div key={message.id} className={`border-l-4 pl-4 py-3 rounded-r-lg`}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-2 mb-2">
                       <span className="font-medium text-gray-800">{message.sender}</span>
-                      {getSentimentBadge(message.sentiment)}
                       <span className="text-xs text-gray-500">{message.timestamp}</span>
                     </div>
                     <p className="text-gray-700">{message.message}</p>
@@ -197,6 +191,18 @@ const StudentGroupChat: React.FC = () => {
                 #{topic.replace(/\s+/g, '')}
               </Badge>
             ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Overall Sentiment */}
+      <Card className="dashboard-card">
+        <CardHeader>
+          <CardTitle>Overall Chat Sentiment</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center">
+            <p className="text-2xl font-bold">{getOverallSentiment()}</p>
           </div>
         </CardContent>
       </Card>

@@ -29,9 +29,9 @@ const StaffStudentMonitor: React.FC = () => {
   });
 
   const getBriColor = (score: number) => {
-    if (score < 40) return 'text-red-600';
-    if (score <= 70) return 'text-yellow-600';
-    return 'text-green-600';
+    if (score > 70) return 'text-green-600';
+    if (score >= 40) return 'text-yellow-600';
+    return 'text-red-600';
   };
 
   const getRiskBadgeColor = (riskLevel: string) => {
